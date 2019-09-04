@@ -10,22 +10,13 @@ public class Enemy : MonoBehaviour
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
-    CharacterController controller;
-
-
-
-    public Vector3 direction = new Vector3(1.0f, 0.0f, 0.0f); // normalised direction the enemy will move in
-
+    private CharacterController controller;
+    public Vector3 direction = Vector3.right; //  direction the enemy will move in
     Vector3 start_position = Vector3.zero; // start position of the enemy
-
     Vector3 start_direction; // start direction of the enemy
 
     void Start()
     {
-        // find the player game object in the scene
-        // playerGameObject = Player.GetPlayerObject(); // No needed in this script 
-
-
         // get the character controller attached to the enemy game object ()
         controller = GetComponent<CharacterController>();
 
@@ -38,8 +29,9 @@ public class Enemy : MonoBehaviour
 
     public void Reset()
     {
-        // reset the enemy position to the start position. Cannot transform  while using controller
-        controller.SimpleMove(start_position);
+        // reset the enemy position to the start position. Cannot transform with no Physics.SyncTransforms()
+        Physics.SyncTransforms();
+        transform.position = start_position;
 
         // reset the movement direction
         direction = start_direction;
@@ -48,15 +40,12 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-   
-   
-
         // check to see if the enemy is on the ground
         if (controller.isGrounded)
         {
             // set character controller moveDirection to be the direction I want the enemy to move in
-            moveDirection = direction;
-            moveDirection *= speed;
+            moveDirection = direction * speed;
+
         }
 
 
@@ -86,7 +75,6 @@ public class Enemy : MonoBehaviour
 
             // reset the player
             Player.Reset();
-
             
         }
         else
