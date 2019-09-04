@@ -1,6 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HUD : MonoBehaviour {
 	// the following variables need connected up in the editor inspector
@@ -8,14 +7,11 @@ public class HUD : MonoBehaviour {
 	public Text gameOverText; // text object to display game over message
 
 
-	Player playerComponent;
+	//Player playerComponent;
 	GameLogic gameLogicComponent;
 
 	// Use this for initialization
 	void Start () {
-		// find the player component
-		playerComponent = GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ();
-
 		// find the GameLogic componet
 		gameLogicComponent = FindObjectOfType<GameLogic> ();
 	}
@@ -24,7 +20,7 @@ public class HUD : MonoBehaviour {
 	void Update () {
 
 		// update the display for the player's number of lives
-		livesText.text = "Lives: "+playerComponent.Lives;
+		livesText.text = "Lives: "+Player.Lives;
 
 		// if game over, then display game over text
 		if (gameLogicComponent.gameOver == true) {
