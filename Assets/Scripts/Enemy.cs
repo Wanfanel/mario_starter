@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class Enemy : MonoBehaviour
@@ -66,11 +66,10 @@ public class Enemy : MonoBehaviour
         {
             // we've hit the player
 
-          
-            // remove a life from the player
-            Player.Lives = Player.Lives - 1;
-            // reset the enemy
 
+            // remove a life from the player
+            GameLogic.LoseLive();
+            // reset the enemy
             Reset();
 
             // reset the player

@@ -1,14 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 
 public class GameLogic : MonoBehaviour {
 
-	Player playerComponent;
 
-	public bool gameOver = false; // is the game over?
+	public static bool gameOver = false; // is the game over?
 
-	// Update is called once per frame
-	void Update () {
+
+    // remove a life from the player
+    public static void LoseLive () {
+        Player.Lives = Player.Lives - 1;
 		// if the player number of lives is zero, game over
 		if (Player.Lives == 0) {
 			gameOver = true;
