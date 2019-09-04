@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
             // remove a life from the player
             Player.Lives = Player.Lives - 1;
             // reset the enemy
-            transform.position = start_position;
+
             Reset();
 
             // reset the player
