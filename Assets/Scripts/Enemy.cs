@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour
             // remove a life from the player
             Player.Lives = Player.Lives - 1;
             // reset the enemy
+
             Reset();
 
             // reset the player
