@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public Vector3 direction = Vector3.right; //  direction the enemy will move in
     Vector3 start_position = Vector3.zero; // start position of the enemy
     Vector3 start_direction; // start direction of the enemy
-
+    
     void Start()
     {
         // get the character controller attached to the enemy game object ()
@@ -65,8 +65,11 @@ public class Enemy : MonoBehaviour
         if (hit.collider.GetComponent<Player>())
         {
             // we've hit the player
-
-
+            if (hit.moveDirection.y > 0.3f)
+            {
+                hit.collider.GetComponent<Player>().Jump();
+            return;
+            }
             // remove a life from the player
             GameLogic.LoseLive();
             // reset the enemy

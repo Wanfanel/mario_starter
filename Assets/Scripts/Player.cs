@@ -49,6 +49,11 @@ public class Player : MonoBehaviour
         return playerObject;
     }
 
+    public void Jump()
+    {
+        moveDirection.y = jumpSpeed;
+    }
+
     void FixedUpdate()
     {
 
@@ -60,7 +65,7 @@ public class Player : MonoBehaviour
 
             // check to see if the player should jump
             if (Input.GetButton("Jump"))
-                moveDirection.y = jumpSpeed;
+                Jump();
         }
 
         // apply gravity to movement direction
