@@ -4,8 +4,15 @@
 public class GameLogic : MonoBehaviour {
 
 
-	public static bool gameOver = false; // is the game over?
+    public static bool gameOver = false; // is the game over?
 
+    static public void GameReset()
+        {
+        Time.timeScale = 1.0f;
+        gameOver = false;
+        Player.Lives = 3;
+
+    }
 
     // remove a life from the player
     public static void LoseLive () {

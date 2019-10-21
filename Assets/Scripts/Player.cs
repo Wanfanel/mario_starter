@@ -6,12 +6,13 @@ public class Player : MonoBehaviour
 
     // variables taken from CharacterController.Move example script
     // https://docs.unity3d.com/ScriptReference/CharacterController.Move.html
-    public float speed = 6.0F;
-    public float jumpSpeed = 8.0F;
-    public float gravity = 20.0F;
+    [SerializeField] float speed = 6.0F;
+    [SerializeField] float jumpSpeed = 8.0F;
+    [SerializeField] float gravity = 20.0F;
     public Vector3 moveDirection = Vector3.zero;
     private static GameObject playerObject;
     CharacterController controller;
+    bool jump = false;
 
     public static int Lives = 3; // number of lives the player hs
 
@@ -26,10 +27,10 @@ public class Player : MonoBehaviour
         GetPlayerObject();
         // get the character controller attached to the player game object
         controller = GetComponent<CharacterController>();
-        
+
     }
-    
-  
+
+
 
     public static void Reset()
     {
@@ -54,12 +55,19 @@ public class Player : MonoBehaviour
         moveDirection.y = jumpSpeed;
     }
 
+    private void Update()
+    {
+        if (controller.isGrounded && !jump)
+            jump = true;
+    }
+
     void FixedUpdate()
     {
 
         // check to see if the player is on the ground
-        if (controller.isGrounded)
+        if (jump)
         {
+            jump = false;
             // set the movement direction based on user input and the desired speed
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, 0) * speed;
 
@@ -67,11 +75,21 @@ public class Player : MonoBehaviour
             if (Input.GetButton("Jump"))
                 Jump();
         }
+        else
+        {
+
+            moveDirection.x = Input.GetAxis("Horizontal") * speed;
+        }
 
         // apply gravity to movement direction
         moveDirection.y -= gravity * Time.fixedDeltaTime;
 
         // make the call to move the character controller
         controller.Move(moveDirection * Time.fixedDeltaTime);
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.moveDirection.y > 0.3f && moveDirection.y > 0f)
+            moveDirection.y = -moveDirection.y;
     }
 }
